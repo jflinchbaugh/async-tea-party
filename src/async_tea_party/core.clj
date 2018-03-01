@@ -2,8 +2,20 @@
   (:require [clojure.core.async :as async])
 )
 
-(def tea-channel (async/chan 10))
+(def google-tea-service-chan (async/chan 10))
+(def yahoo-tea-service-chan (async/chan 10))
 
-(async/>!! tea-channel :cup-of-tea)
+(defn random-add []
+  (reduce + (conj [] (repeat (rand-int 10000) 1))))
 
-(async/<!! tea-channel)
+(defn request-google-tea-service []
+  (async/go
+    (random-add)
+    (async/>! google-tea-service-chan
+      "tea complimens of google")))
+
+(defn request-yahoo-tea-service []
+  (async/go
+    (random-add)
+    (async/>! yahoo-tea-service-chan
+      "tea complimens of yahoo")))
