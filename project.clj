@@ -7,4 +7,6 @@
     [org.clojure/clojure "1.9.0"]
     [org.clojure/core.async "0.4.474"]
   ]
+  :main async-tea-party.core
+  :aot [async-tea-party.core]
 )
